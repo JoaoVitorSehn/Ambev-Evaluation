@@ -1,15 +1,18 @@
-﻿namespace Ambev.DeveloperEvaluation.Domain.Entities
+﻿using Ambev.DeveloperEvaluation.Common.Security;
+using Ambev.DeveloperEvaluation.Domain.Common;
+using Ambev.DeveloperEvaluation.Domain.Enums;
+
+namespace Ambev.DeveloperEvaluation.Domain.Entities
 {
-    public class Sale
+    public class Sale : BaseEntity
     {
-        public Guid Id { get; private set; }
-        public int SaleNumber { get; private set; }
-        public DateTime SaleDate { get; private set; }
-        public Guid CustomerId { get; private set; }  
+        public Guid BranchId { get; set; }
+        public int SaleNumber { get; set; }
+        public DateTime SaleDate { get; set; }
+        public Guid CustomerId { get; set; }
+        public List<SaleItem> SaleItems { get; set; } = new();
+        public SaleStatus Status { get; private set; }
         public decimal TotalAmount => SaleItems.Sum(i => i.TotalItemAmount);
-        public Guid BranchId { get; private set; }  
-        public List<SaleItem> SaleItems { get; private set; } = new();
-        public bool IsCancelled { get; private set; }
 
         public Sale(int saleNumber, Guid customerId, Guid branchId, List<SaleItem> items)
         {
@@ -18,15 +21,13 @@
             SaleDate = DateTime.UtcNow;
             CustomerId = customerId;
             BranchId = branchId;
-            IsCancelled = false;
+            Status = SaleStatus.Active;
 
             foreach (var item in items)
             {
                 AddItem(item);
             }
         }
-
-
 
         public void AddItem(SaleItem item)
         {
@@ -39,7 +40,7 @@
 
         public void CancelSale()
         {
-            IsCancelled = true;
+            Status = SaleStatus.Cancelled;
         }
     }
 }
