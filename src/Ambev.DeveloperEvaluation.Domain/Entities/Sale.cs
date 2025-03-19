@@ -1,46 +1,59 @@
-﻿using Ambev.DeveloperEvaluation.Common.Security;
-using Ambev.DeveloperEvaluation.Domain.Common;
+﻿using Ambev.DeveloperEvaluation.Domain.Common;
 using Ambev.DeveloperEvaluation.Domain.Enums;
 
-namespace Ambev.DeveloperEvaluation.Domain.Entities
+namespace Ambev.DeveloperEvaluation.Domain.Entities;
+
+public class Sale : BaseEntity
 {
-    public class Sale : BaseEntity
+    /// <summary>
+    /// Gets or sets the unique identifier for the branch where the sale was made.
+    /// </summary>
+    public Guid BranchId { get; set; }
+
+    /// <summary>
+    /// Gets or sets the sale number, which uniquely identifies the sale transaction.
+    /// </summary>
+    public int SaleNumber { get; set; }
+
+    /// <summary>
+    /// Gets or sets the date and time when the sale was created.
+    /// </summary>
+    public DateTime SaleDate { get; set; }
+
+    /// <summary>
+    /// Gets or sets the unique identifier of the customer associated with the sale.
+    /// </summary>
+    public Guid CustomerId { get; set; }
+
+    /// <summary>
+    /// Gets or sets the list of items included in the sale.
+    /// </summary>
+    public List<SaleItem> SaleItems { get; set; } = new();
+
+    /// <summary>
+    /// Gets the current status of the sale. Initializes with active status.
+    /// </summary>
+    public SaleStatus Status { get; private set; }
+
+    /// <summary>
+    /// Gets the total amount of the sale, calculated as the sum of all sale item totals.
+    /// </summary>
+    public decimal TotalAmount => SaleItems.Sum(i => i.TotalItemAmount);
+
+    /// <summary>
+    /// Initializes a new instance of the Sale class.
+    /// </summary>
+    public Sale()
     {
-        public Guid BranchId { get; set; }
-        public int SaleNumber { get; set; }
-        public DateTime SaleDate { get; set; }
-        public Guid CustomerId { get; set; }
-        public List<SaleItem> SaleItems { get; set; } = new();
-        public SaleStatus Status { get; private set; }
-        public decimal TotalAmount => SaleItems.Sum(i => i.TotalItemAmount);
+        Status = SaleStatus.Active;
+    }
 
-        public Sale(int saleNumber, Guid customerId, Guid branchId, List<SaleItem> items)
-        {
-            Id = Guid.NewGuid();
-            SaleNumber = saleNumber;
-            SaleDate = DateTime.UtcNow;
-            CustomerId = customerId;
-            BranchId = branchId;
-            Status = SaleStatus.Active;
-
-            foreach (var item in items)
-            {
-                AddItem(item);
-            }
-        }
-
-        public void AddItem(SaleItem item)
-        {
-            if (item.Quantity > 20)
-                throw new InvalidOperationException("Cannot sell more than 20 units of the same item.");
-
-            item.ApplyDiscount();
-            SaleItems.Add(item);
-        }
-
-        public void CancelSale()
-        {
-            Status = SaleStatus.Cancelled;
-        }
+    /// <summary>
+    /// Cancel a sale.
+    /// Changes the sale's status to Cancelled.
+    /// </summary>
+    public void CancelSale()
+    {
+        Status = SaleStatus.Canceled;
     }
 }
