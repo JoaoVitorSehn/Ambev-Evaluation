@@ -1,4 +1,6 @@
-﻿using Ambev.DeveloperEvaluation.Domain.Enums;
+﻿using Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
+using Ambev.DeveloperEvaluation.Domain.Enums;
+using MediatR;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Users.CreateUser;
 
