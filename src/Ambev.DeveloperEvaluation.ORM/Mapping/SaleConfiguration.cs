@@ -17,11 +17,15 @@ namespace Ambev.DeveloperEvaluation.ORM.Mapping
             builder.Property(u => u.SaleDate).IsRequired().HasMaxLength(100);
             builder.Property(u => u.BranchId).IsRequired().HasMaxLength(100);
             builder.Property(u => u.CustomerId).HasMaxLength(20);
-            builder.Property(u => u.CustomerId).HasMaxLength(20);
 
             builder.Property(u => u.Status)
                 .HasConversion<string>()
-                .HasMaxLength(20);
+            .HasMaxLength(20);
+
+            builder.HasMany(s => s.SaleItems)
+                .WithOne(si => si.Sale)
+                .HasForeignKey(si => si.SaleId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

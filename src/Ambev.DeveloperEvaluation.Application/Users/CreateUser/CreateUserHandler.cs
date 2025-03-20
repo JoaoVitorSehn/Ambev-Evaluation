@@ -21,7 +21,6 @@ public class CreateUserHandler : IRequestHandler<CreateUserCommand, CreateUserRe
     /// </summary>
     /// <param name="userRepository">The user repository</param>
     /// <param name="mapper">The AutoMapper instance</param>
-    /// <param name="validator">The validator for CreateUserCommand</param>
     public CreateUserHandler(IUserRepository userRepository, IMapper mapper, IPasswordHasher passwordHasher)
     {
         _userRepository = userRepository;
@@ -37,7 +36,7 @@ public class CreateUserHandler : IRequestHandler<CreateUserCommand, CreateUserRe
     /// <returns>The created user details</returns>
     public async Task<CreateUserResult> Handle(CreateUserCommand command, CancellationToken cancellationToken)
     {
-        var validator = new CreateUserCommandValidator();
+        var validator = new CreateUserValidator();
         var validationResult = await validator.ValidateAsync(command, cancellationToken);
 
         if (!validationResult.IsValid)
