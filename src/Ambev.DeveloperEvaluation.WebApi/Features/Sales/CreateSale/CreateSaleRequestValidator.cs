@@ -1,8 +1,10 @@
-﻿using Ambev.DeveloperEvaluation.Domain.Enums;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.CreateSale
 {
+    /// <summary>
+    /// Validator for CreateSaleRequest
+    /// </summary>
     public class CreateSaleRequestValidator : AbstractValidator<CreateSaleRequest>
     {
         /// <summary>
@@ -39,6 +41,22 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.CreateSale
             RuleFor(sale => sale.SaleItems)
                 .NotEmpty()
                 .WithMessage("The sale must contain at least one item.");
+
+            RuleForEach(sale => sale.SaleItems)
+                .ChildRules(item =>
+                {
+                    item.RuleFor(i => i.ProductId)
+                        .NotEmpty()
+                        .WithMessage("Each sale item must have a product ID.");
+
+                    item.RuleFor(i => i.Quantity)
+                        .GreaterThan(0)
+                        .WithMessage("Each sale item must have a quantity greater than zero.");
+
+                    item.RuleFor(i => i.UnitPrice)
+                        .GreaterThan(0)
+                        .WithMessage("Each sale item must have a valid unit price.");
+                });
         }
     }
 }

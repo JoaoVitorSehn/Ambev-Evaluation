@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale
 {
-    public class CreateSaleCommand : IRequest<CreateSaleResult>
+    public record CreateSaleCommand : IRequest<CreateSaleResult>
     {
         /// <summary>
         /// Gets or sets the unique identifier for the branch.

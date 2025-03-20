@@ -3,6 +3,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Ambev.DeveloperEvaluation.ORM.Repositories
 {
+    /// <summary>
+    /// Generic repository interface that defines common data access operations
+    /// using Entity Framework Core. Provides a standardized way to interact
+    /// with the database for any entity type, ensuring consistency and reusability.
+    /// </summary>
     public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : BaseEntity
     {
         private readonly DefaultContext _context;
@@ -36,7 +41,7 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
         public virtual async Task<TEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
         {
             IQueryable<TEntity> query = _dbSet.AsQueryable();
-            return await query.FirstOrDefaultAsync(x => x.Id == id);
+            return await query.FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
         }
 
         /// <summary>
