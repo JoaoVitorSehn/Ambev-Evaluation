@@ -1,13 +1,12 @@
-﻿namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.DeleteSale
+﻿namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.DeleteSale;
+
+/// <summary>
+/// Request model for deleting a sale
+/// </summary>
+public class DeleteSaleRequest
 {
     /// <summary>
-    /// Request model for deleting a sale
+    /// The unique identifier of the sale to delete
     /// </summary>
-    public class DeleteSaleRequest
-    {
-        /// <summary>
-        /// The unique identifier of the sale to delete
-        /// </summary>
-        public Guid Id { get; set; }
-    }
+    public Guid Id { get; set; }
 }

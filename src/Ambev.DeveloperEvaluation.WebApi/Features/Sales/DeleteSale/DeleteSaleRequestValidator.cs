@@ -1,20 +1,19 @@
 ﻿using FluentValidation;
 
-namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.DeleteSale
+namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.DeleteSale;
+
+/// <summary>
+/// Validator for DeleteSaleRequest
+/// </summary>
+public class DeleteSaleRequestValidator : AbstractValidator<DeleteSaleRequest>
 {
     /// <summary>
-    /// Validator for DeleteSaleRequest
+    /// Initializes validation rules for DeleteSaleRequest
     /// </summary>
-    public class DeleteSaleRequestValidator : AbstractValidator<DeleteSaleRequest>
+    public DeleteSaleRequestValidator()
     {
-        /// <summary>
-        /// Initializes validation rules for DeleteSaleRequest
-        /// </summary>
-        public DeleteSaleRequestValidator()
-        {
-            RuleFor(x => x.Id)
-                .NotEmpty()
-                .WithMessage("Sale ID is required");
-        }
+        RuleFor(x => x.Id)
+            .NotEmpty()
+            .WithMessage("Sale ID is required");
     }
 }
