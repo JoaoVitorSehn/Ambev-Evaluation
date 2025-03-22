@@ -1,5 +1,6 @@
 ﻿using Ambev.DeveloperEvaluation.Domain.Entities;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
+using Ambev.DeveloperEvaluation.Domain.Services;
 using AutoMapper;
 using FluentValidation;
 using MediatR;
@@ -13,17 +14,19 @@ public class CreateSaleHandler : IRequestHandler<CreateSaleCommand, CreateSaleRe
 {
     private readonly ISaleRepository _saleRepository;
     private readonly IMapper _mapper;
+    private readonly IItemSaleService _service;
 
     /// <summary>
-    /// Initializes a new instance of CreateUserHandler
+    /// Initializes a new instance of CreateSaleHandler
     /// </summary>
     /// <param name="saleRepository">The sale repository</param>
     /// <param name="mapper">The AutoMapper instance</param>
-    /// <param name="validator">The validator for CreateUserCommand</param>
-    public CreateSaleHandler(ISaleRepository saleRepository, IMapper mapper)
+    /// <param name="itemService">The ItemSale service</param>
+    public CreateSaleHandler(ISaleRepository saleRepository, IMapper mapper, IItemSaleService itemService)
     {
         _saleRepository = saleRepository;
         _mapper = mapper;
+        _service = itemService;
     }
 
     /// <summary>
@@ -31,7 +34,7 @@ public class CreateSaleHandler : IRequestHandler<CreateSaleCommand, CreateSaleRe
     /// </summary>
     /// <param name="command">The CreateSale command</param>
     /// <param name="cancellationToken">Cancellation token</param>
-    /// <returns>The created user details</returns>
+    /// <returns>The created sale details</returns>
     public async Task<CreateSaleResult> Handle(CreateSaleCommand command, CancellationToken cancellationToken)
     {
         var validator = new CreateSaleValidator();
@@ -45,9 +48,14 @@ public class CreateSaleHandler : IRequestHandler<CreateSaleCommand, CreateSaleRe
         if (existingSale != null)
             throw new InvalidOperationException($"Sale with number {command.SaleNumber} already exists");
 
-        var user = _mapper.Map<Sale>(command);
+        var sale = _mapper.Map<Sale>(command);
 
-        var createdSale = await _saleRepository.CreateAsync(user, cancellationToken);
+        foreach (var item in sale.SaleItems)
+        {
+            _service.ApplyDiscount(item);
+        }
+
+        var createdSale = await _saleRepository.CreateAsync(sale, cancellationToken);
         var result = _mapper.Map<CreateSaleResult>(createdSale);
         return result;
     }
