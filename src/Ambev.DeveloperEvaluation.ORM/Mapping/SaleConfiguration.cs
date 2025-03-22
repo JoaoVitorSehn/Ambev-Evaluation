@@ -10,15 +10,25 @@ public class SaleConfiguration : IEntityTypeConfiguration<Sale>
     {
         builder.ToTable("Sales");
 
-        builder.HasKey(u => u.Id);
-        builder.Property(u => u.Id).HasColumnType("usuid").HasDefaultValueSql("gen_random_uuid()");
+        builder.HasKey(s => s.Id);
+        builder.Property(s => s.Id)
+            .HasColumnType("uuid")
+            .HasDefaultValueSql("gen_random_uuid()");
 
-        builder.Property(u => u.SaleNumber).IsRequired().HasMaxLength(50);
-        builder.Property(u => u.SaleDate).IsRequired().HasMaxLength(100);
-        builder.Property(u => u.BranchId).IsRequired().HasMaxLength(100);
-        builder.Property(u => u.CustomerId).HasMaxLength(20);
+        builder.Property(s => s.SaleNumber)
+            .IsRequired()
+            .HasMaxLength(50);
 
-        builder.Property(u => u.Status)
+        builder.Property(s => s.SaleDate)
+            .IsRequired();
+
+        builder.Property(s => s.BranchId)
+            .IsRequired();
+
+        builder.Property(s => s.CustomerId)
+            .IsRequired();
+
+        builder.Property(s => s.Status)
             .HasConversion<string>()
             .HasMaxLength(20);
 
@@ -26,5 +36,15 @@ public class SaleConfiguration : IEntityTypeConfiguration<Sale>
             .WithOne(si => si.Sale)
             .HasForeignKey(si => si.SaleId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasOne<Branch>()
+            .WithMany()
+            .HasForeignKey(s => s.BranchId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne<Customer>()
+            .WithMany()
+            .HasForeignKey(s => s.CustomerId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

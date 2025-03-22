@@ -3,6 +3,11 @@ using Ambev.DeveloperEvaluation.Domain.Enums;
 
 namespace Ambev.DeveloperEvaluation.Domain.Entities;
 
+/// <summary>
+/// The Sale class is a core domain entity that encapsulates the behavior and business rules 
+/// associated with a sales transaction. It ensures that sales are managed consistently, 
+/// maintaining integrity and enforcing business logic.
+/// </summary>
 public class Sale : BaseEntity
 {
     /// <summary>

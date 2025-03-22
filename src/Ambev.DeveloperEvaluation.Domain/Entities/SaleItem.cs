@@ -2,6 +2,11 @@
 
 namespace Ambev.DeveloperEvaluation.Domain.Entities
 {
+    /// <summary>
+    /// The SaleItem class is a domain entity that represents an individual item within a sale transaction. 
+    /// It encapsulates the core business rules related to the pricing, quantity, discount, and total amount 
+    /// of the item in a sale.
+    /// </summary>
     public class SaleItem : BaseEntity
     {
         /// <summary>
@@ -54,11 +59,32 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities
         public void ApplyDiscount()
         {
             if (Quantity >= 4 && Quantity < 10)
-                Discount = (UnitPrice * Quantity) * 0.10m;
+            {
+                Discount = (Quantity * UnitPrice) * 0.10m;
+            }
             else if (Quantity >= 10 && Quantity <= 20)
-                Discount = (UnitPrice * Quantity) * 0.20m;
-            else
+            {
+                Discount = (Quantity * UnitPrice) * 0.20m;
+            }
+            else if (Quantity < 4)
+            {
                 Discount = 0;
+            }
+        }
+
+        /// <summary>
+        /// Validates the quantity of items to ensure that the number of units for a product
+        /// does not exceed the maximum limit of 20 items per sale.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">
+        /// Thrown when the quantity of items exceeds 20.
+        /// </exception>
+        public void ValidateQuantity()
+        {
+            if (Quantity > 20)
+            {
+                throw new DomainException("It is not possible to sell more than 20 items.");
+            }
         }
     }
 }
