@@ -8,7 +8,7 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
 public class CreateSaleValidator : AbstractValidator<CreateSaleCommand>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="CreateSaleRequestValidator"/> class with defined validation rules.
+    /// Initializes a new instance of the <see cref="CreateSaleValidator"/> class with defined validation rules.
     /// </summary>
     /// <remarks>
     /// Validation rules include:
@@ -56,6 +56,10 @@ public class CreateSaleValidator : AbstractValidator<CreateSaleCommand>
                 item.RuleFor(i => i.UnitPrice)
                     .GreaterThan(0)
                     .WithMessage("Each sale item must have a valid unit price.");
+
+                item.RuleFor(x => x.Discount)
+                    .GreaterThanOrEqualTo(0).WithMessage("Discount cannot be negative.")
+                    .LessThanOrEqualTo(x => x.UnitPrice).WithMessage("Discount cannot be greater than unit price.");
             });
     }
 }

@@ -9,6 +9,15 @@ public class DeleteSaleHandler : IRequestHandler<DeleteSaleCommand, DeleteSaleRe
     private readonly ISaleRepository _saleRepository;
 
     /// <summary>
+    /// Initializes a new instance of DeleteSaleHandler
+    /// </summary>
+    /// <param name="saleRepository">The sale repository</param>
+    public DeleteSaleHandler(ISaleRepository saleRepository)
+    {
+        _saleRepository = saleRepository;
+    }
+
+    /// <summary>
     /// Handles the DeleteSaleCommand request
     /// </summary>
     /// <param name="request">The DeleteSale command</param>
@@ -27,14 +36,5 @@ public class DeleteSaleHandler : IRequestHandler<DeleteSaleCommand, DeleteSaleRe
             throw new KeyNotFoundException($"Sale with ID {request.Id} not found");
 
         return new DeleteSaleResult { Success = true };
-    }
-
-    /// <summary>
-    /// Initializes a new instance of DeleteSaleHandler
-    /// </summary>
-    /// <param name="saleRepository">The sale repository</param>
-    public DeleteSaleHandler(ISaleRepository saleRepository)
-    {
-        _saleRepository = saleRepository;
     }
 }

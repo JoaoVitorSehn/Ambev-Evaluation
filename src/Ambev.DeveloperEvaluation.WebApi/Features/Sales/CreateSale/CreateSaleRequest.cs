@@ -1,4 +1,4 @@
-﻿using Ambev.DeveloperEvaluation.Domain.Entities;
+﻿using Ambev.DeveloperEvaluation.Application.SalesItems.CreateSaleItem;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.CreateSale;
 
@@ -30,5 +30,5 @@ public class CreateSaleRequest
     /// <summary>
     /// Gets or sets the list of sale items. Must contain at least one item.
     /// </summary>
-    public List<SaleItem> SaleItems { get; set; } = new();
+    public List<CreateSaleItemCommand> SaleItems { get; set; } = new();
 }

@@ -56,6 +56,10 @@ public class CreateSaleRequestValidator : AbstractValidator<CreateSaleRequest>
                 item.RuleFor(i => i.UnitPrice)
                     .GreaterThan(0)
                     .WithMessage("Each sale item must have a valid unit price.");
+
+                item.RuleFor(x => x.Discount)
+                    .GreaterThanOrEqualTo(0).WithMessage("Discount cannot be negative.")
+                    .LessThanOrEqualTo(x => x.UnitPrice).WithMessage("Discount cannot be greater than unit price.");
             });
     }
 }
