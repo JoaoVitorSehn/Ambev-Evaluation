@@ -1,7 +1,7 @@
 ﻿namespace Ambev.DeveloperEvaluation.Application.Sales.DeleteSale;
 
 /// <summary>
-/// Response model for DeleteUser operation
+/// Response model for DeleteSale operation
 /// </summary>
 public class DeleteSaleResult
 {

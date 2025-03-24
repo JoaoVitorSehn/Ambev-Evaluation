@@ -1,5 +1,5 @@
-﻿using Ambev.DeveloperEvaluation.Domain.Entities;
-using Ambev.DeveloperEvaluation.Domain.Enums;
+﻿using Ambev.DeveloperEvaluation.Domain.Enums;
+using Ambev.DeveloperEvaluation.WebApi.Features.SalesItems.GetSaleItem;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.GetSale;
 
@@ -37,7 +37,7 @@ public class GetSaleResponse
     /// <summary>
     /// Gets or sets the list of items included in the sale.
     /// </summary>
-    public List<SaleItem> SaleItems { get; set; } = [];
+    public List<GetSaleItemResponse> SaleItems { get; set; } = [];
 
     /// <summary>
     /// Gets the current status of the sale. Initializes with active status.

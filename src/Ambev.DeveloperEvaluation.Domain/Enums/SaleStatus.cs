@@ -1,9 +1,8 @@
-﻿namespace Ambev.DeveloperEvaluation.Domain.Enums
+﻿namespace Ambev.DeveloperEvaluation.Domain.Enums;
+
+public enum SaleStatus
 {
-    public enum SaleStatus
-    {
-        Unknown = 0,
-        Active,
-        Canceled
-    }
+    Unknown = 0,
+    Active,
+    Canceled
 }

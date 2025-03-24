@@ -38,7 +38,7 @@ public class Sale : BaseEntity
     /// <summary>
     /// Gets the current status of the sale. Initializes with active status.
     /// </summary>
-    public SaleStatus Status { get; private set; }
+    public SaleStatus Status { get; set; }
 
     /// <summary>
     /// Gets the total amount of the sale, calculated as the sum of all sale item totals.

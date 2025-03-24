@@ -9,6 +9,7 @@ using Ambev.DeveloperEvaluation.WebApi.Middleware;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
+using System.Reflection;
 
 namespace Ambev.DeveloperEvaluation.WebApi;
 

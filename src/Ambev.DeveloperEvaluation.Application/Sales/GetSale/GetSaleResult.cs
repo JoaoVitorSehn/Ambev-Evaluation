@@ -1,4 +1,4 @@
-﻿using Ambev.DeveloperEvaluation.Domain.Entities;
+﻿using Ambev.DeveloperEvaluation.Application.SalesItems.GetSaleItem;
 using Ambev.DeveloperEvaluation.Domain.Enums;
 
 namespace Ambev.DeveloperEvaluation.Application.Sales.GetSale;
@@ -37,7 +37,7 @@ public class GetSaleResult
     /// <summary>
     /// Gets or sets the list of items included in the sale.
     /// </summary>
-    public List<SaleItem> SaleItems { get; set; } = [];
+    public List<GetSaleItemResult> SaleItems { get; set; } = [];
 
     /// <summary>
     /// Gets the current status of the sale. Initializes with active status.

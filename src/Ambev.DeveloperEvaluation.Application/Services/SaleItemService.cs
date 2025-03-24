@@ -3,10 +3,10 @@
 namespace Ambev.DeveloperEvaluation.Domain.Services
 {
     /// <summary>
-    /// The <see cref="ItemSaleService"/> class is responsible for handling operations related
+    /// The <see cref="SaleItemService"/> class is responsible for handling operations related
     /// to sale items, such as applying business rules (e.g., discount application) and validations.
     /// </summary>
-    public class ItemSaleService : IItemSaleService
+    public class SaleItemService : ISaleItemService
     {
         /// <summary>
         /// Applies the discount to a given sale item after validating its quantity.

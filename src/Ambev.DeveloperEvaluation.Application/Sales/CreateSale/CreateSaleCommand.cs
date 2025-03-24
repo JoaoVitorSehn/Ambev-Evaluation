@@ -1,5 +1,5 @@
-﻿using Ambev.DeveloperEvaluation.Common.Validation;
-using Ambev.DeveloperEvaluation.Domain.Entities;
+﻿using Ambev.DeveloperEvaluation.Application.SalesItems.CreateSaleItem;
+using Ambev.DeveloperEvaluation.Common.Validation;
 using MediatR;
 
 namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
@@ -29,7 +29,7 @@ public record CreateSaleCommand : IRequest<CreateSaleResult>
     /// <summary>
     /// Gets or sets the list of sale items.
     /// </summary>
-    public List<SaleItem> SaleItems { get; set; } = new();
+    public List<CreateSaleItemCommand> SaleItems { get; set; } = new();
 
     public ValidationResultDetail Validate()
     {

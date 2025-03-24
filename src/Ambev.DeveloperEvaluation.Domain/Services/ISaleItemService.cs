@@ -6,7 +6,7 @@ namespace Ambev.DeveloperEvaluation.Domain.Services
     /// Interface for the service that handles operations related to sale items.
     /// It defines methods to perform various actions on sale items, such as applying discounts.
     /// </summary>s
-    public interface IItemSaleService
+    public interface ISaleItemService
     {
         /// <summary>
         /// Applies a discount to the given sale item after validating its quantity.
