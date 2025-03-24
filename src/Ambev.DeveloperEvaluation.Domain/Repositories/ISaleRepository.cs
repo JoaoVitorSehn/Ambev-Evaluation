@@ -13,5 +13,5 @@ public interface ISaleRepository : IBaseRepository<Sale>
     /// </summary>
     /// <param name="saleNumber">The sale number to search for</param>
     /// <returns>The sale if found, null otherwise</returns>
-    Task<Sale?> GetbySaleNumber(int saleNumber, CancellationToken cancellationToken = default);
+    Task<Sale?> GetbySaleNumber(string saleNumber, CancellationToken cancellationToken = default);
 }

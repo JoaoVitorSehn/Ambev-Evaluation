@@ -5,15 +5,10 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities;
 /// <summary>
 /// Represents a branch (store or location) where sales transactions occur.
 /// This entity is responsible for storing essential branch information.
+/// This entity follows the External Identities pattern.
 /// </summary>
 public class Branch : BaseEntity
 {
-    /// <summary>
-    /// Gets the unique identifier for the branch.
-    /// This ID is used as an external reference in other domains.
-    /// </summary>
-    public Guid BranchId { get; set; }
-
     /// <summary>
     /// Gets the official name of the branch.
     /// </summary>

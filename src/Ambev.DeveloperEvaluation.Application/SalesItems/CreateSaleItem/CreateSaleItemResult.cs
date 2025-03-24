@@ -8,7 +8,7 @@
         /// <summary>
         /// Gets or sets the unique identifier of the sale item.
         /// </summary>
-        public Guid SaleItemId { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Gets or sets the unique identifier of the product associated with the sale item.

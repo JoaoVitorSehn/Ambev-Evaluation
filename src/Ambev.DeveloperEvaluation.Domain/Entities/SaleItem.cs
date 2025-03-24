@@ -1,5 +1,7 @@
-﻿using Ambev.DeveloperEvaluation.Domain.Common;
+﻿using Ambev.DeveloperEvaluation.Common.Validation;
+using Ambev.DeveloperEvaluation.Domain.Common;
 using Ambev.DeveloperEvaluation.Domain.Enums;
+using Ambev.DeveloperEvaluation.Domain.Validation;
 
 namespace Ambev.DeveloperEvaluation.Domain.Entities;
 
@@ -57,11 +59,36 @@ public class SaleItem : BaseEntity
     public SaleItemStatus Status { get; set; }
 
     /// <summary>
+    /// Gets or sets the product associated with the sale item. This represents the specific product 
+    /// that is being sold as part of the sale item, including its details such as name, price, etc.
+    /// </summary>
+    public Product Product { get; set; }
+
+    /// <summary>
     /// Initializes a new instance of the SaleItem class.
     /// </summary>
     public SaleItem()
     {
         Status = SaleItemStatus.Active;
+    }
+
+    /// <summary>
+    /// Validates the sale item using the SaleItemValidator rules.
+    /// </summary>
+    /// <returns>
+    /// A <see cref="ValidationResultDetail"/> containing:
+    /// - IsValid: Indicates whether all validation rules passed
+    /// - Errors: Collection of validation errors if any rules failed
+    /// </returns>
+    public ValidationResultDetail Validate()
+    {
+        var validator = new SaleItemValidator();
+        var result = validator.Validate(this);
+        return new ValidationResultDetail
+        {
+            IsValid = result.IsValid,
+            Errors = result.Errors.Select(o => (ValidationErrorDetail)o)
+        };
     }
 
     /// <summary>

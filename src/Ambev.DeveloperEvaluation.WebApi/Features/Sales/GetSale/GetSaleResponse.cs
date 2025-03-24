@@ -22,7 +22,7 @@ public class GetSaleResponse
     /// <summary>
     /// Gets or sets the sale number, which uniquely identifies the sale transaction.
     /// </summary>
-    public int SaleNumber { get; set; }
+    public string SaleNumber { get; set; } = String.Empty;
 
     /// <summary>
     /// Gets or sets the date and time when the sale was created.

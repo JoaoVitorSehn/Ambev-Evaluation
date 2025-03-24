@@ -4,5 +4,6 @@ public enum SaleStatus
 {
     Unknown = 0,
     Active,
-    Canceled
+    Canceled,
+    Completed
 }

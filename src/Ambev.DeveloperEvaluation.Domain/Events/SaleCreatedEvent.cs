@@ -6,7 +6,7 @@ namespace Ambev.DeveloperEvaluation.Domain.Events;
 public class SaleCreatedEvent : INotification
 {
     public Guid SaleId { get; }
-    public int SaleNumber { get; }
+    public string SaleNumber { get; } = String.Empty;
     public DateTime CreatedAt { get; }
 
     public SaleCreatedEvent(Sale sale)

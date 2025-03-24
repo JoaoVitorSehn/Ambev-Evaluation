@@ -26,7 +26,7 @@ public class UpdateSaleItemValidator : AbstractValidator<UpdateSaleItemCommand>
 
         RuleFor(x => x.Discount)
             .GreaterThanOrEqualTo(0).WithMessage("Discount cannot be negative.")
-            .LessThanOrEqualTo(x => x.UnitPrice).WithMessage("Discount cannot be greater than unit price.");
+            .LessThanOrEqualTo(x => x.UnitPrice * x.Quantity).WithMessage("Discount cannot be greater than the total price.");
 
         RuleFor(x => x.SaleId)
             .NotEmpty().WithMessage("Sale Id is required.");
