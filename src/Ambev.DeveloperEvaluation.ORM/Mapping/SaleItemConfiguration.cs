@@ -47,6 +47,11 @@ namespace Ambev.DeveloperEvaluation.ORM.Mapping
 
             builder.Property(si => si.TotalItemAmount)
                    .HasComputedColumnSql("([UnitPrice] * [Quantity]) - [Discount]");
+
+            builder.HasOne<Product>()
+                   .WithMany()
+                   .HasForeignKey(s => s.ProductId)
+                   .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

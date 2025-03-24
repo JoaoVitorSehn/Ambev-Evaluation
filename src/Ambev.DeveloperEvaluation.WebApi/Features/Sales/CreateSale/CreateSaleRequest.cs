@@ -15,7 +15,7 @@ public class CreateSaleRequest
     /// <summary>
     /// Gets or sets the sale number. Must be unique.
     /// </summary>
-    public int SaleNumber { get; set; }
+    public string SaleNumber { get; set; } = String.Empty;
 
     /// <summary>
     /// Gets or sets the sale date. Must be greater than or equal to today's date.

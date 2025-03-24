@@ -14,7 +14,7 @@ public record CreateSaleCommand : IRequest<CreateSaleResult>
     /// <summary>
     /// Gets or sets the sale number.
     /// </summary>
-    public int SaleNumber { get; set; }
+    public string SaleNumber { get; set; } = String.Empty;
 
     /// <summary>
     /// Gets or sets the sale date.
